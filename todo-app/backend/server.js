@@ -1,55 +1,34 @@
-const express = require("express")
-const cors = require("cors")
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
 
-const app = express()
-app.use(cors())
-app.use(express.json())
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-let tasks = []
+const PORT = process.env.PORT || 5000;
 
-// CREATE
-app.post("/tasks",(req,res)=>{
- const task = {
-   id: Date.now(),
-   text: req.body.text
- }
- tasks.push(task)
- res.json(task)
-})
+let tasks = [];
 
-// READ
-app.get("/tasks",(req,res)=>{
- res.json(tasks)
-})
+// GET all tasks
+app.get("/tasks", (req, res) => {
+  res.json(tasks);
+});
 
-// UPDATE
-app.put("/tasks/:id",(req,res)=>{
- const id = parseInt(req.params.id)
+// ADD task
+app.post("/tasks", (req, res) => {
+  const task = req.body;
+  tasks.push(task);
+  res.json(task);
+});
 
- tasks = tasks.map(task=>{
-   if(task.id === id){
-     task.text = req.body.text
-   }
-   return task
- })
+// DELETE task
+app.delete("/tasks/:id", (req, res) => {
+  const id = req.params.id;
+  tasks = tasks.filter((t) => t.id != id);
+  res.json({ message: "Deleted" });
+});
 
- res.json({message:"updated"})
-})
-
-// DELETE
-app.delete("/tasks/:id",(req,res)=>{
- const id = parseInt(req.params.id)
-
- tasks = tasks.filter(task=>task.id !== id)
-
- res.json({message:"deleted"})
-})
-
-app.get("/",(req,res)=>{
- res.send("Backend running")
-})
-
-const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
-  console.log("Server running on port", PORT)
-})
+  console.log(`Server running on port ${PORT}`);
+});
