@@ -31,3 +31,22 @@ Tools:
 - Docker
 - GitHub
 - Render
+
+
+## CI/CD Pipeline (Assignment 2)
+
+This project now includes a Jenkins CI/CD pipeline for frontend + backend.
+
+### Jenkinsfile
+- Located in project root
+- Stages:
+  - Checkout
+  - Install Frontend
+  - Build Frontend
+  - Test Frontend
+  - Install Backend
+  - Test Backend
+  - Deploy (optional)
+
+### GitHub Link
+[https://github.com/kinley2007wangmo/KinleyWangmo_02250356_DSO101_A1.git]
