@@ -13,7 +13,9 @@ function App() {
   }, []);
 
   const addTask = async () => {
-    const newTask = { id: Date.now(), text };
+    if (!text.trim()) return;
+
+    const newTask = { id: Date.now(), text: text.trim() };
 
     await fetch(`${API}/tasks`, {
       method: "POST",

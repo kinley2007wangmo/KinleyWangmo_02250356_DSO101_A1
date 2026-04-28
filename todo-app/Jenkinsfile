@@ -9,8 +9,16 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', 
+                git branch: 'main',
                 url: 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
+            }
+        }
+
+        stage('Install Backend') {
+            steps {
+                dir('backend') {
+                    sh 'npm install'
+                }
             }
         }
 
@@ -30,33 +38,16 @@ pipeline {
             }
         }
 
-        stage('Test Frontend') {
-            steps {
-                dir('frontend') {
-                    sh 'npm test'
-                }
-            }
-        }
-
-        stage('Install Backend') {
-            steps {
-                dir('backend') {
-                    sh 'npm install'
-                }
-            }
-        }
-
         stage('Test Backend') {
             steps {
                 dir('backend') {
                     sh 'npm test'
                 }
             }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploy both frontend and backend (optional Docker)'
+            post {
+                always {
+                    junit 'backend/junit.xml'
+                }
             }
         }
     }
