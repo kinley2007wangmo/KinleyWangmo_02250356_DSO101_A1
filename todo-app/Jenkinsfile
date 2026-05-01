@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
+                url: 'https://github.com/kinley2007wangmo/KinleyWangmo_02250356_DSO101_A1.git'
             }
         }
 
