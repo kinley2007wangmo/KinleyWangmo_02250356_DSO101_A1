@@ -129,6 +129,12 @@ The application was tested by:
 
 ## Screenshots
 
+### Docker Hub of Backend 
+![Docker Backend](assets/docker-hub-backend.png)
+
+### Docker Hub of Frontend 
+![Docker Frontend](assets/docker-hub-frontend.png)
+
 ### Docker Images
 ![Docker images](assets/docker-images.png)
 
