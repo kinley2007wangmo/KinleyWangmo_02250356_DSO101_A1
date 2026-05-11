@@ -160,7 +160,6 @@ The application was tested by:
 
 # DSO101 Assignment 2
 ## CI/CD Pipeline
-
 This project now includes a Jenkins CI/CD pipeline for frontend + backend.
 
 ### Jenkinsfile
