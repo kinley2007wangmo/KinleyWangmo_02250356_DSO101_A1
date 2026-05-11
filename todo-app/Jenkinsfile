@@ -1,20 +1,15 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJS'
-    }
-
     stages {
 
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                url: 'https://github.com/kinley2007wangmo/KinleyWangmo_02250356_DSO101_A1.git'
+                echo 'Checking out source code'
             }
         }
 
-        stage('Install Backend') {
+        stage('Install Backend Dependencies') {
             steps {
                 dir('backend') {
                     sh 'npm install'
@@ -22,7 +17,7 @@ pipeline {
             }
         }
 
-        stage('Install Frontend') {
+        stage('Install Frontend Dependencies') {
             steps {
                 dir('frontend') {
                     sh 'npm install'
@@ -38,16 +33,23 @@ pipeline {
             }
         }
 
-        stage('Test Backend') {
+        stage('Run Backend Tests') {
             steps {
                 dir('backend') {
                     sh 'npm test'
                 }
             }
+
             post {
                 always {
                     junit 'backend/junit.xml'
                 }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deployment stage completed'
             }
         }
     }
