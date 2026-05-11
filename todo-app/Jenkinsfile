@@ -22,7 +22,7 @@ pipeline {
 
         stage('Install Backend Dependencies') {
             steps {
-                dir('backend') {
+                dir('todo-app/backend') {
                     sh 'npm install'
                 }
             }
@@ -30,7 +30,7 @@ pipeline {
 
         stage('Install Frontend Dependencies') {
             steps {
-                dir('frontend') {
+                dir('todo-app/frontend') {
                     sh 'npm install'
                 }
             }
@@ -38,7 +38,7 @@ pipeline {
 
         stage('Build Frontend') {
             steps {
-                dir('frontend') {
+                dir('todo-app/frontend') {
                     sh 'npm run build'
                 }
             }
@@ -46,14 +46,14 @@ pipeline {
 
         stage('Run Backend Tests') {
             steps {
-                dir('backend') {
+                dir('todo-app/backend') {
                     sh 'npm test'
                 }
             }
 
             post {
                 always {
-                    junit 'backend/junit.xml'
+                    junit 'todo-app/backend/junit.xml'
                 }
             }
         }
