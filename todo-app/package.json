@@ -1,6 +1,10 @@
 {
-  "devDependencies": {
-    "jest": "^30.4.2",
-    "jest-junit": "^17.0.0"
+  "name": "todo-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install-all": "cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "test": "cd backend && npm test"
   }
 }

@@ -162,6 +162,7 @@ The application was tested by:
 ## CI/CD Pipeline
 This project now includes a Jenkins CI/CD pipeline for frontend + backend.
 
+
 ### Jenkinsfile
 - Located in project root
 - Stages:
