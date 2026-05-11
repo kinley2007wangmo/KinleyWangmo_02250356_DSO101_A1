@@ -39,7 +39,7 @@ pipeline {
         stage('Build Frontend') {
             steps {
                 dir('todo-app/frontend') {
-                    sh 'npm run build'
+                    sh 'CI=false npm run build'
                 }
             }
         }
