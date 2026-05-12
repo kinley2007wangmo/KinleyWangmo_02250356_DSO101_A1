@@ -1,0 +1,39 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Checkout code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # DockerHub login
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Build Backend Image
+      - name: Build Backend Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/be-todo:latest ./backend
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/be-todo:latest
+
+      # Build Frontend Image
+      - name: Build Frontend Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/fe-todo:latest ./frontend
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/fe-todo:latest
+
+      # Trigger Render Deployment
+      - name: Trigger Render Deployment
+        run: curl ${{ secrets.RENDER_WEBHOOK }}
