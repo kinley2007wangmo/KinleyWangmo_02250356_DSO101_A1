@@ -11,29 +11,30 @@ jobs:
 
     steps:
 
-      # Checkout code
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # DockerHub login
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Build Backend Image
       - name: Build Backend Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/be-todo:latest ./backend
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/be-todo:latest ./todo-app/backend
+
+      - name: Push Backend Docker Image
+        run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/be-todo:latest
 
-      # Build Frontend Image
       - name: Build Frontend Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/fe-todo:latest ./frontend
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/fe-todo:latest ./todo-app/frontend
+
+      - name: Push Frontend Docker Image
+        run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/fe-todo:latest
 
-      # Trigger Render Deployment
       - name: Trigger Render Deployment
         run: curl ${{ secrets.RENDER_WEBHOOK }}
