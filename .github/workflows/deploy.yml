@@ -22,17 +22,17 @@ jobs:
 
       # Backend
       - name: Build Backend Docker Image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/be-todo:latest .
+        run: docker build -t kinley2007wangmo/be-todo:latest ./todo-app/backend
 
       - name: Push Backend Docker Image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/be-todo:latest
+        run: docker push kinley2007wangmo/be-todo:latest
 
       # Frontend
       - name: Build Frontend Docker Image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/fe-todo:latest .
+        run: docker build -t kinley2007wangmo/fe-todo:latest ./todo-app/frontend
 
       - name: Push Frontend Docker Image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/fe-todo:latest
+        run: docker push kinley2007wangmo/fe-todo:latest
 
       - name: Trigger Render Deployment
         run: curl ${{ secrets.RENDER_WEBHOOK }}
